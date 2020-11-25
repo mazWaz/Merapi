@@ -18,7 +18,6 @@ class DashboardViewModel(
     state: DashboardState,
     private val service: AppService
 ) : MvRxViewModel<DashboardState>(state) {
-    private lateinit var disposable: Disposable
     companion object : MvRxViewModelFactory<DashboardViewModel, DashboardState> {
         override fun create(
             viewModelContext: ViewModelContext,
@@ -48,12 +47,6 @@ class DashboardViewModel(
 
     fun setAltitude(altitude: String) = setState {
         copy(altitude = altitude)
-    }
-
-
-    override fun onCleared() {
-        disposable.dispose()
-        super.onCleared()
     }
 
 

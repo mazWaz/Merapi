@@ -11,16 +11,9 @@ class Constants {
     companion object {
         const val NAME_ALIAS = "DASHBOARD"
         const val TOKEN = "live.mazwazstorage.token"
-        const val NIK = "live.mazwazstorage.nik"
-        const val NAMA = "live.mazwazstorage.nama"
-        const val SELECTED_FACTORY = "live.mazwazstorage.selected_factory"
-        const val NAME_FACTORY = "live.mazwazstorage.name_factory"
-        const val LIST_FACTORY = "live.mazwazstorage.list_factory"
-
         const val API_URL = "live.mazwazstorage.api_url"
-        const val ACCESS_DB = "live.mazwazstorage.access_db"
-        const val SCANNER = "live.mazwazstorage.scanner"
-        const val MESPASS = "eca07a65ba8b5c3269a8751112b9078c"
+        const val URL_BLG = "https://merapi.bgl.esdm.go.id/"
+
         val BASE_URL: String = Hawk.get<String>(API_URL) + "/api/"
 
         fun onFailStatus(fail: String): String {
