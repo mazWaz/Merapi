@@ -5,12 +5,13 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
+import live.mazwaz.merapi.databinding.ActivityMainBinding
 import live.mazwaz.merapi.services.GpsService
+import live.mazwaz.merapi.ui.base.BaseActivity
+import live.mazwaz.merapi.ui.base.BaseFragment
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : BaseActivity<ActivityMainBinding>(){
+    override fun getLayoutRes() = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
 
-    }
 }

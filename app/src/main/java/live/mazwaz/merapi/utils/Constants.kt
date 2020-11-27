@@ -10,11 +10,9 @@ import kotlin.math.sin
 class Constants {
     companion object {
         const val NAME_ALIAS = "DASHBOARD"
-        const val TOKEN = "live.mazwazstorage.token"
-        const val API_URL = "live.mazwazstorage.api_url"
-        const val URL_BLG = "https://merapi.bgl.esdm.go.id/"
-
-        val BASE_URL: String = Hawk.get<String>(API_URL) + "/api/"
+        const val API_URL = "live.mazwaz.storage.api_url"
+        const val BASE_URL: String = "https://magma.vsi.esdm.go.id/androidpub/"
+        const val PREVIOUS_STATUS = "live.mazwaz.storage.previous.status"
 
         fun onFailStatus(fail: String): String {
             return if (fail.contains("Temporary Redirect")) {

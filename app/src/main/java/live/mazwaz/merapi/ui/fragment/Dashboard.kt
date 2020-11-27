@@ -8,42 +8,50 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
-import com.airbnb.mvrx.activityViewModel
+import com.airbnb.mvrx.*
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.orhanobut.hawk.Hawk
 import io.reactivex.disposables.Disposable
 import live.mazwaz.merapi.*
+import live.mazwaz.merapi.R
 import live.mazwaz.merapi.databinding.FragmentBaseBinding
 import live.mazwaz.merapi.model.RawLocation
 import live.mazwaz.merapi.services.GpsService
 import live.mazwaz.merapi.ui.base.BaseEpoxyFragment
 import live.mazwaz.merapi.ui.base.MvRxEpoxyController
 import live.mazwaz.merapi.ui.base.buildController
+import live.mazwaz.merapi.ui.item.distanceAltitude
 import live.mazwaz.merapi.ui.item.volcanoStatusInfo
+import live.mazwaz.merapi.ui.state.DashboardState
 import live.mazwaz.merapi.ui.viewModel.DashboardViewModel
+import live.mazwaz.merapi.utils.Constants
 import live.mazwaz.merapi.utils.Constants.Companion.DistanceTo
-import live.mazwaz.merapi.utils.Constants.Companion.URL_BLG
 import live.mazwaz.merapi.utils.RxBus
 import live.mazwaz.merapi.utils.RxEvent
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import java.io.IOException
 import java.text.DecimalFormat
-import kotlin.math.round
 
 class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
     private val viewModel: DashboardViewModel by activityViewModel()
     override var fragmentLayout: Int = R.layout.fragment_base
+
     private lateinit var disposable: Disposable
     var PrevLocation: RawLocation = RawLocation(0.0, 0.0, 0.0)
     private val df = DecimalFormat("#.##")
-
+    private var previousStatus = ""
+    private val krb = 3
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            requireActivity().startForegroundService(Intent(requireActivity(), GpsService::class.java))
+            requireActivity().startForegroundService(
+                Intent(
+                    requireActivity(),
+                    GpsService::class.java
+                )
+            )
         } else {
             requireActivity().startService(Intent(requireActivity(), GpsService::class.java))
         }
@@ -55,7 +63,14 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
         disposable = RxBus.listen(RxEvent.LocationChangeListener::class.java).subscribe {
             postLocation(it.data.latitude, it.data.longitude, it.data.altitude)
         }
-        getStatus()
+        previousStatus = if (!Hawk.contains(Constants.PREVIOUS_STATUS)) {
+            "NORMAL"
+        } else {
+            Hawk.get(Constants.PREVIOUS_STATUS)
+        }
+        viewModel.getVolcanos()
+        getMerapiInfo()
+        getlocation()
     }
 
     override fun epoxyController(): MvRxEpoxyController = buildController(viewModel) { state ->
@@ -63,21 +78,47 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
             id("TopLabel")
         }
 
-        volcanoStatusInfo {
-            id("Volcano Status")
-            data("AA")
-        }
+        when (val response = state.volcanoResponse) {
 
+            is Success -> {
+                val data = response.invoke().laporan[0]
+                Log.d("PPPPP", data.cu_status)
+                volcanoStatusInfo {
+                    id("Volcano Status")
+                    data(data.cu_status)
+                }
+            }
+            else -> {
+                volcanoStatusInfo {
+                    id("Volcano Status")
+                    data(previousStatus)
+                }
+            }
+
+
+        }
         location {
             id("location")
             location(state.geoLocation)
         }
-        distanceAltitude {
-            id("DistanceAltitude")
-            distance(state.distance)
-            distanceInfo("Anda Berada Dikawasan Bencana Segra Menjauh")
-            altitude("${state.altitude} M")
+        if (state.distance != null && state.altitude != null) {
+            distanceAltitude {
+                id("DistanceAltitude")
+                distance(state.distance)
+                altitude(state.altitude)
+                krb(krb.toString())
+            }
+        } else {
+            distanceAltitude {
+                id("DistanceAltitude")
+                distance("0")
+                altitude("0")
+                krb(krb.toString())
+            }
         }
+
+
+
         titleSparator {
             id("Sparator")
             title("Information")
@@ -108,6 +149,7 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
             setDistance((df.format(DistanceTo(-7.5411395, 110.4460518, lat, long, "K"))).toString())
         }
     }
+
     @SuppressLint("MissingPermission")
     private fun getlocation() {
         val mFusedLocation = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -131,28 +173,27 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                 if (!result.lastLocation.isFromMockProvider) {
                     postLocation(
                         lastLocation.latitude,
-                        lastLocation.latitude,
+                        lastLocation.longitude,
                         lastLocation.altitude
                     )
-                    try {
-
-                    } catch (e: IOException) {
-                        //
-                    }
                 }
             }
         }, null)
     }
-    fun getStatus(){
-        Thread(Runnable {
-            try {
-                val doc = Jsoup.connect(URL_BLG).get()
-                val h1 = doc.select("h1")
-                Log.d("PPPPP", h1.toString())
-            }catch (e: Exception){
-                Log.d("PPPPPE", e.toString())
+
+    private fun getMerapiInfo() {
+        viewModel.asyncSubscribe(
+            subscriptionLifecycleOwner,
+            DashboardState::volcanosResponse,
+            onSuccess = {
+                it.res.forEach {
+                    if (it.ga_nama_gapi.toUpperCase().contains("MERAPI")) {
+                        viewModel.getVolcano(it.no)
+                    }
+                }
             }
-        }).start()
+
+        )
     }
 
     override fun onDestroy() {

@@ -26,9 +26,20 @@ class DashboardViewModel(
             val appService: AppService by viewModelContext.activity.inject()
             return DashboardViewModel(state, appService)
         }
-
-
     }
+
+    fun getVolcanos() = viewModelScope.rxApi {
+        service.getVolcanos()
+    }.execute {
+        copy(volcanosResponse = it)
+    }
+
+    fun getVolcano(id:String) = viewModelScope.rxApi {
+        service.getVolcano(id)
+    }.execute {
+        copy(volcanoResponse = it)
+    }
+
     fun setVolcanoStatus(status: String) = setState {
         copy(volcanoStatus = status)
     }

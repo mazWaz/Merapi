@@ -25,16 +25,13 @@
 
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
+            android:id="@+id/cvDistance"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:cardBackgroundColor="@color/colorAwas"
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/cardView4"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,32 +42,30 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/tvDistance"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{distanceInfo}"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:text="@{distance+`KM\nDari Puncak`}"
-                    android:textColor="@android:color/white"
+                    android:gravity="center"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView13"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/tvTitleDistance"
+                    app:layout_constraintStart_toStartOf="@+id/tvTitleDistance"
+                    app:layout_constraintTop_toBottomOf="@+id/tvTitleDistance" />
+
+                <TextView
+                    android:id="@+id/tvTitleDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="Jarak Puncak"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/tvDistance"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.37"
                     app:layout_constraintStart_toEndOf="@+id/imageView4"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,11 +90,11 @@
             android:layout_marginEnd="16dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+            app:layout_constraintBottom_toBottomOf="@+id/cvDistance"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/cardView2"
-            app:layout_constraintTop_toTopOf="@+id/cardView2">
+            app:layout_constraintStart_toEndOf="@+id/cvDistance"
+            app:layout_constraintTop_toTopOf="@+id/cvDistance">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -114,7 +109,7 @@
                     android:text="Altitude"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@+id/textView21"
+                    app:layout_constraintBottom_toTopOf="@+id/tvAltitude"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -122,10 +117,10 @@
                     app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/tvAltitude"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@{altitude}"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -147,5 +142,17 @@
                     app:srcCompat="@drawable/ic_altitude" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvterm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/cardView4"
+            app:layout_constraintStart_toStartOf="@+id/cvDistance"
+            app:layout_constraintTop_toBottomOf="@+id/cvDistance" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

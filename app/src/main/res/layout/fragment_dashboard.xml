@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cvDistance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -23,7 +23,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/tvDistance"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -33,11 +33,11 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView14"
-                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+                app:layout_constraintStart_toStartOf="@+id/tvTitleDistance"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleDistance" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTitleDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -47,7 +47,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/textView13"
+                app:layout_constraintBottom_toTopOf="@+id/tvDistance"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView4"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -74,11 +74,11 @@
         app:cardBackgroundColor="@color/colorAwas"
         app:cardCornerRadius="20dp"
         app:cardElevation="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+        app:layout_constraintBottom_toBottomOf="@+id/cvDistance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cardView2"
-        app:layout_constraintTop_toTopOf="@+id/cardView2">
+        app:layout_constraintStart_toEndOf="@+id/cvDistance"
+        app:layout_constraintTop_toTopOf="@+id/cvDistance">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -99,7 +99,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView21"
+                android:id="@+id/tvAltitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="300m"
@@ -169,7 +169,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
@@ -188,8 +188,8 @@
                 android:textColor="@android:color/white"
                 android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintStart_toStartOf="@+id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
             <ImageView
                 android:id="@+id/imageStatus"
@@ -248,7 +248,7 @@
         android:textSize="22sp"
         android:textStyle="normal"
         app:layout_constraintStart_toStartOf="@+id/cvStatus"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+        app:layout_constraintTop_toBottomOf="@+id/cvDistance" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
