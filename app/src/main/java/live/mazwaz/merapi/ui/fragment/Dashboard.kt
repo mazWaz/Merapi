@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.airbnb.mvrx.*
 import com.google.android.gms.location.LocationCallback
@@ -107,6 +108,9 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                 distance(state.distance)
                 altitude(state.altitude)
                 krb(krb.toString())
+                onClicked {
+                    findNavController().navigate(R.id.action_dashboard_to_distance)
+                }
             }
         } else {
             distanceAltitude {
@@ -114,22 +118,48 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                 distance("0")
                 altitude("0")
                 krb(krb.toString())
+                onClicked {
+                    findNavController().navigate(R.id.action_dashboard_to_distance)
+                }
             }
         }
 
-
-
         titleSparator {
             id("Sparator")
-            title("Information")
+            title("Informasi Merapi")
+            titleRight("Detail >")
+            onDetailClick { _ ->
+
+            }
         }
 
-        informationDashboard {
-            id("informationDashboard")
-            info1("10")
-            info2("20")
-            info3("30")
+        when (val response = state.volcanoResponse) {
+            is Success -> {
+                val data = response.invoke().laporan[0]
+                informationDashboard {
+                    id("informationDashboard")
+                    suhu("${data.var_suhumax} - ${data.var_suhumax} °C")
+                    kelembapan("${data.var_kelembabanmin} - ${data.var_kelembabanmax}%")
+                    tekanan("${data.var_tekananmin} - ${data.var_tekananmax}")
+                }
+            }
+
         }
+
+        when (val response = state.volcanoResponse) {
+            is Success -> {
+                val data = response.invoke().laporan[0]
+                visualView {
+                    id("informationDashboard")
+                    pengamatan(
+                        "Gunung Merapi Tertutup Kabut ${data.var_visibility} \n" +
+                            "Asap Kawah ${data.var_asap}")
+                }
+            }
+
+        }
+
+
     }
 
     private fun postLocation(lat: Double, long: Double, alti: Double) {

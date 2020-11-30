@@ -6,15 +6,15 @@
     <data>
 
         <variable
-            name="info1"
+            name="suhu"
             type="String" />
 
         <variable
-            name="info2"
+            name="kelembapan"
             type="String" />
 
         <variable
-            name="info3"
+            name="tekanan"
             type="String" />
     </data>
 
@@ -48,8 +48,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Informasi 5"
-                    android:textSize="12sp"
+                    android:text="Suhu"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@+id/textView8"
                     app:layout_constraintEnd_toEndOf="@+id/imageView6"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -58,31 +58,31 @@
 
                 <TextView
                     android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
+                    android:layout_marginTop="4dp"
                     android:gravity="center"
-                    android:text="Informasi 4"
-                    android:textSize="12sp"
+                    android:text="Kelembapan "
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@+id/textView8"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                    app:layout_constraintEnd_toStartOf="@+id/line_below_phone_info2"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/imageView7"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+                    app:layout_constraintStart_toEndOf="@+id/line_below_phone_info"
+                    app:layout_constraintTop_toTopOf="@+id/textView12" />
 
                 <TextView
                     android:id="@+id/textView17"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="5dp"
                     android:gravity="center"
-                    android:text="Informasi 3"
-                    android:textSize="12sp"
+                    android:text="Tekanan Udara"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toTopOf="@+id/textView8"
                     app:layout_constraintEnd_toEndOf="@+id/imageView8"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="@+id/imageView8"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+                    app:layout_constraintTop_toTopOf="@+id/textView12" />
 
                 <ImageView
                     android:id="@+id/imageView6"
@@ -95,76 +95,81 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed"
-                    app:srcCompat="@drawable/ic_tent" />
+                    app:srcCompat="@drawable/ic_thermometer" />
 
                 <ImageView
                     android:id="@+id/imageView7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintBottom_toTopOf="@+id/textView12"
                     app:layout_constraintEnd_toStartOf="@+id/line_below_phone_info2"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/line_below_phone_info"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageView6"
                     app:layout_constraintVertical_bias="1.0"
                     app:layout_constraintVertical_chainStyle="packed"
-                    app:srcCompat="@drawable/ic_tent" />
+                    app:srcCompat="@drawable/ic_humidity" />
 
                 <ImageView
                     android:id="@+id/imageView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     app:layout_constraintBottom_toTopOf="@+id/textView12"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/line_below_phone_info2"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/imageView6"
                     app:layout_constraintVertical_bias="1.0"
                     app:layout_constraintVertical_chainStyle="packed"
-                    app:srcCompat="@drawable/ic_tent" />
+                    app:srcCompat="@drawable/ic_pressure" />
 
                 <TextView
                     android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{info1}"
-                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="@{suhu}"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView12"
+                    app:layout_constraintEnd_toStartOf="@+id/line_below_phone_info"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/textView12"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
                 <TextView
                     android:id="@+id/textView16"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{info2}"
-                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="@{kelembapan}"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView15"
+                    app:layout_constraintEnd_toStartOf="@+id/line_below_phone_info2"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/textView15"
-                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                    app:layout_constraintStart_toEndOf="@+id/line_below_phone_info"
+                    app:layout_constraintTop_toTopOf="@+id/textView8" />
 
                 <TextView
                     android:id="@+id/textView18"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="1dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginBottom="8dp"
-                    android:text="@{info3}"
-                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:text="@{tekanan}"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/textView17"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/textView17"
+                    app:layout_constraintStart_toEndOf="@+id/line_below_phone_info2"
                     app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
                 <View
