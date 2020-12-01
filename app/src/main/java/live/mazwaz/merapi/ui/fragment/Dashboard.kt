@@ -60,10 +60,6 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
             lifecycleOwner = viewLifecycleOwner
             recyclerView.layoutManager = GridLayoutManager(context, 1)
         }
-
-        disposable = RxBus.listen(RxEvent.LocationChangeListener::class.java).subscribe {
-            postLocation(it.data.latitude, it.data.longitude, it.data.altitude)
-        }
         previousStatus = if (!Hawk.contains(Constants.PREVIOUS_STATUS)) {
             "NORMAL"
         } else {
@@ -78,7 +74,6 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
         topLabel {
             id("TopLabel")
         }
-
         when (val response = state.volcanoResponse) {
 
             is Success -> {
@@ -95,8 +90,6 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                     data(previousStatus)
                 }
             }
-
-
         }
         location {
             id("location")
@@ -123,22 +116,29 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                 }
             }
         }
-
-        titleSparator {
-            id("Sparator")
-            title("Informasi Merapi")
-            titleRight("Detail >")
-            onDetailClick { _ ->
-
+        when (val response = state.volcanoResponse) {
+            is Success -> {
+                val data = response.invoke().laporan[0]
+                data
+                titleSparator {
+                    id("Sparator")
+                    title("Informasi Merapi")
+                    titleRight("Detail >")
+                    onDetailClick { _ ->
+                        findNavController().navigate(R.id.action_dashboard_to_informationVolcano)
+                    }
+                }
             }
+
         }
+
 
         when (val response = state.volcanoResponse) {
             is Success -> {
                 val data = response.invoke().laporan[0]
                 informationDashboard {
                     id("informationDashboard")
-                    suhu("${data.var_suhumax} - ${data.var_suhumax} °C")
+                    suhu("${data.var_suhumin} - ${data.var_suhumax} °C")
                     kelembapan("${data.var_kelembabanmin} - ${data.var_kelembabanmax}%")
                     tekanan("${data.var_tekananmin} - ${data.var_tekananmax}")
                 }
@@ -158,8 +158,6 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
             }
 
         }
-
-
     }
 
     private fun postLocation(lat: Double, long: Double, alti: Double) {
@@ -199,7 +197,6 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                         lastLocation.altitude
                     )
                 }
-
                 if (!result.lastLocation.isFromMockProvider) {
                     postLocation(
                         lastLocation.latitude,
@@ -226,6 +223,17 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
         )
     }
 
+
+    override fun onStart() {
+        super.onStart()
+        disposable = RxBus.listen(RxEvent.LocationChangeListener::class.java).subscribe {
+            postLocation(it.data.latitude, it.data.longitude, it.data.altitude)
+        }
+    }
+    override fun onPause() {
+        super.onPause()
+        disposable.dispose()
+    }
     override fun onDestroy() {
         super.onDestroy()
         disposable.dispose()
