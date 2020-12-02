@@ -25,6 +25,7 @@ import java.text.DecimalFormat
 
 class Distance : Fragment() {
     private val df = DecimalFormat("#.##")
+
     @SuppressLint("MissingPermission")
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -84,12 +85,7 @@ class Distance : Fragment() {
                     .target(myPosition) // Sets the center of the map to Mountain View
                     .zoom(10f)            // Sets the zoom
                     .target(
-                        midPoint(
-                            merapi.latitude,
-                            merapi.longitude,
-                            myPosition.latitude,
-                            myPosition.longitude
-                        )
+                        LatLng(myPosition.latitude,myPosition.longitude)
                     )// Sets the tilt of the camera to 30 degrees
                     .build()              // Creates a CameraPosition from the builder
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))

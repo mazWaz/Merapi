@@ -11,6 +11,7 @@ import live.mazwaz.merapi.ui.state.DashboardState
 import live.mazwaz.merapi.utils.RxBus
 import live.mazwaz.merapi.utils.RxEvent
 import org.koin.android.ext.android.inject
+import org.koin.core.qualifier.named
 import java.util.*
 
 
@@ -23,7 +24,7 @@ class DashboardViewModel(
             viewModelContext: ViewModelContext,
             state: DashboardState
         ): DashboardViewModel? {
-            val appService: AppService by viewModelContext.activity.inject()
+            val appService: AppService by viewModelContext.activity.inject(named("BPPD"))
             return DashboardViewModel(state, appService)
         }
     }

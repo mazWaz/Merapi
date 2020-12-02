@@ -40,7 +40,7 @@ class DistanceAltitude @JvmOverloads constructor(
             tvterm.setTextColor(resources.getColor(R.color.colorWhite))
         }
         tvterm.text = words.random()
-        tvDistance.text = data+" M"
+        tvDistance.text = data+" KM"
     }
 
     @ModelProp

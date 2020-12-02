@@ -15,16 +15,18 @@ import live.mazwaz.merapi.ui.base.MvRxEpoxyController
 import live.mazwaz.merapi.ui.base.buildController
 import live.mazwaz.merapi.ui.item.image
 import live.mazwaz.merapi.ui.item.volcanoStatusInfo
+import live.mazwaz.merapi.ui.item.weather
 import live.mazwaz.merapi.ui.state.DashboardState
 import live.mazwaz.merapi.ui.viewModel.DashboardViewModel
 
-class InformationVolcano: BaseEpoxyFragment<FragmentBaseBinding>() {
+class InformationVolcano : BaseEpoxyFragment<FragmentBaseBinding>() {
     override var fragmentLayout: Int = R.layout.fragment_base
     private val viewModel: DashboardViewModel by activityViewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getMerapiInfo()
     }
+
     override fun epoxyController(): MvRxEpoxyController = buildController(viewModel) { state ->
 
         when (val response = state.volcanoResponse) {
@@ -42,17 +44,44 @@ class InformationVolcano: BaseEpoxyFragment<FragmentBaseBinding>() {
                 }
                 weather {
                     id("weather ")
+                    weather(data.var_cuaca)
+                    wind(
+                        "Angin Bertiup "
+                                + data.var_kecangin.substringBeforeLast(",")
+                                + " Hingga " + data.var_kecangin.substringAfterLast(",")
+                                + " Ke arah " + data.var_arangin.substringBeforeLast(",")
+                                + " dan " + data.var_arangin.substringAfterLast(",")
+                    )
+                }
+                var visual = ""
+                if (data.var_wasap != "-") {
+                    visual += "berwarna " + data.var_wasap
+                }
+                if (data.var_intasap != "-") {
+                    visual += " dengan intensitas " + data.var_intasap
+                }
+                if (data.var_tasap != "-") {
+                    visual += if (data.var_tasap != data.var_tasap_min) {
+                        " dan tinggi " + data.var_tasap_min + "-" + data.var_tasap + "M diatas Puncak Kawah"
+                    } else {
+                        " dan tinggi " + data.var_tasap_min + "M diatas Puncak Kawah"
+                    }
                 }
                 visualView {
                     id("informationDashboard")
                     pengamatan(
-                        "Gunung Merapi Tertutup Kabut ${data.var_visibility} \n" +
-                                "Asap Kawah ${data.var_asap}")
+                        "Gunung Merapi Terlihat ${data.var_visibility} \n" +
+                                "Asap Kawah ${data.var_asap} ${visual}"
+                    )
+                }
+                recommendation {
+                    id("recomendation")
+                    rekomendasi(data.var_rekom)
                 }
             }
-
         }
     }
+
     private fun getMerapiInfo() {
         viewModel.asyncSubscribe(
             subscriptionLifecycleOwner,
