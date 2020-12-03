@@ -42,16 +42,23 @@ class InformationVolcano : BaseEpoxyFragment<FragmentBaseBinding>() {
                     kelembapan("${data.var_kelembabanmin} - ${data.var_kelembabanmax}%")
                     tekanan("${data.var_tekananmin} - ${data.var_tekananmax}")
                 }
+                var wind =""
+
+                wind += if (data.var_kecangin.substringBeforeLast(",") !=  data.var_kecangin.substringAfterLast(",")){
+                    "Angin Bertiup " + data.var_kecangin.substringBeforeLast(",") + " Hingga " + data.var_kecangin.substringAfterLast(",")
+                }else{
+                    "Angin Bertiup " + data.var_kecangin.substringBeforeLast(",")
+                }
+
+                wind += if(data.var_arangin.substringBeforeLast(",") !=  data.var_arangin.substringAfterLast(",")){
+                    " Ke arah "+ data.var_arangin.substringBeforeLast(",") + " dan " + data.var_arangin.substringAfterLast(",")
+                }else{
+                    " Ke arah "+ data.var_arangin.substringBeforeLast(",")
+                }
                 weather {
                     id("weather ")
                     weather(data.var_cuaca)
-                    wind(
-                        "Angin Bertiup "
-                                + data.var_kecangin.substringBeforeLast(",")
-                                + " Hingga " + data.var_kecangin.substringAfterLast(",")
-                                + " Ke arah " + data.var_arangin.substringBeforeLast(",")
-                                + " dan " + data.var_arangin.substringAfterLast(",")
-                    )
+                    wind(wind)
                 }
                 var visual = ""
                 if(data.var_asap !="Tidak Teramati"){
