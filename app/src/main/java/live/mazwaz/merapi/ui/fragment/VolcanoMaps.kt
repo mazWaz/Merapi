@@ -24,13 +24,21 @@ import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.text.DecimalFormat
 
-
-class Distance : Fragment() {
+class VolcanoMaps : Fragment() {
     private val df = DecimalFormat("#.##")
 
     @SuppressLint("MissingPermission")
 
     private val callback = OnMapReadyCallback { googleMap ->
+        /**
+         * Manipulates the map once available.
+         * This callback is triggered when the map is ready to be used.
+         * This is where we can add markers or lines, add listeners or move the camera.
+         * In this case, we just add a marker near Sydney, Australia.
+         * If Google Play services is not installed on the device, the user will be prompted to
+         * install it inside the SupportMapFragment. This method will only be triggered once the
+         * user has installed Google Play services and returned to the app.
+         */
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
@@ -56,40 +64,13 @@ class Distance : Fragment() {
                 val lastLocation = result.lastLocation
                 val myPosition = LatLng(lastLocation.latitude, lastLocation.longitude)
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myPosition, 0f))
-                googleMap.addPolyline(
-                    PolylineOptions()
-                        .add(merapi)
-                        .add(myPosition)
-                        .width(6f)
-                        .color(Color.RED)
-                )
-                googleMap.addMarker(
-                    MarkerOptions()
-                        .position(myPosition)
-                        .title("Jarak Dengan Merapi")
-                        .snippet(
-                            " ${
-                                df.format(
-                                    Constants.DistanceTo(
-                                        -7.5411395,
-                                        110.4460518,
-                                        lastLocation.latitude,
-                                        lastLocation.longitude,
-                                        "K"
-                                    )
-                                )
-                            } KM"
-                        )
-                ).showInfoWindow()
-                googleMap.addMarker(MarkerOptions().position(merapi).title("Gunung Merapi"))
+                googleMap.addMarker(MarkerOptions().position(merapi).title("Gunung Merapi")).showInfoWindow()
                 googleMap.isMyLocationEnabled = true
                 val cameraPosition = CameraPosition.Builder()
-                    .target(myPosition) // Sets the center of the map to Mountain View
-                    .zoom(10f)            // Sets the zoom
-                    .target(
-                        LatLng(myPosition.latitude,myPosition.longitude)
-                    )// Sets the tilt of the camera to 30 degrees
-                    .build()              // Creates a CameraPosition from the builder
+                    .target(myPosition)
+                    .zoom(10f)
+                    .target(merapi)
+                    .build()
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
             }
         }, null)
@@ -129,10 +110,5 @@ class Distance : Fragment() {
         }
         mapFragment?.getMapAsync(callback)
     }
-
-    fun midPoint(lat1: Double, long1: Double, lat2: Double, long2: Double): LatLng {
-        return LatLng((lat1 + lat2) / 2, (long1 + long2) / 2)
-    }
-
 
 }

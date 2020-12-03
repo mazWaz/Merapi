@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_dashboard_to_informationVolcano"
             app:destination="@id/informationVolcano" />
+        <action
+            android:id="@+id/action_dashboard_to_volcanoMaps"
+            app:destination="@id/volcanoMaps" />
     </fragment>
     <fragment
         android:id="@+id/distance"
@@ -26,4 +29,8 @@
         android:name="live.mazwaz.merapi.ui.fragment.InformationVolcano"
         android:label="InformationVolcano" >
     </fragment>
+    <fragment
+        android:id="@+id/volcanoMaps"
+        android:name="live.mazwaz.merapi.ui.fragment.VolcanoMaps"
+        android:label="VolcanoMaps" />
 </navigation>

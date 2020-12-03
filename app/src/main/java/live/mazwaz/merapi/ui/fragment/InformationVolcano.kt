@@ -54,25 +54,26 @@ class InformationVolcano : BaseEpoxyFragment<FragmentBaseBinding>() {
                     )
                 }
                 var visual = ""
-                if (data.var_wasap != "-") {
-                    visual += "berwarna " + data.var_wasap
-                }
-                if (data.var_intasap != "-") {
-                    visual += " dengan intensitas " + data.var_intasap
-                }
-                if (data.var_tasap != "-") {
-                    visual += if (data.var_tasap != data.var_tasap_min) {
-                        " dan tinggi " + data.var_tasap_min + "-" + data.var_tasap + "M diatas Puncak Kawah"
-                    } else {
-                        " dan tinggi " + data.var_tasap_min + "M diatas Puncak Kawah"
+                if(data.var_asap !="Tidak Teramati"){
+                    if(data.var_wasap != "-"){
+                        visual += "berwarna " + data.var_wasap
+                    }
+                    if(data.var_intasap != "-"){
+                        visual += " dengan intensitas "+data.var_intasap
+                    }
+                    if (data.var_tasap != "-"){
+                        visual += if(data.var_tasap != data.var_tasap_min){
+                            " dan tinggi "+data.var_tasap_min +"-"+data.var_tasap+"M diatas Puncak Kawah"
+                        }else{
+                            " dan tinggi "+data.var_tasap_min+"M diatas Puncak Kawah"
+                        }
                     }
                 }
                 visualView {
                     id("informationDashboard")
                     pengamatan(
                         "Gunung Merapi Terlihat ${data.var_visibility} \n" +
-                                "Asap Kawah ${data.var_asap} ${visual}"
-                    )
+                                "Asap Kawah ${data.var_asap} ${visual}")
                 }
                 recommendation {
                     id("recomendation")
