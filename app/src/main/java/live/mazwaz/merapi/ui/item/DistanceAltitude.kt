@@ -31,6 +31,7 @@ class DistanceAltitude @JvmOverloads constructor(
     @ModelProp
     fun setDistance(data: String){
         Log.d("PPPPP", (krb>=data.toDouble()).toString())
+        tvterm.text = words.random()
         if(krb > data.toDouble() ){
             cvDistance.setCardBackgroundColor(resources.getColor(R.color.colorAwas))
             tvDistance.setTextColor(resources.getColor(R.color.colorWhite))
@@ -39,7 +40,6 @@ class DistanceAltitude @JvmOverloads constructor(
             tvterm.setBackgroundColor(resources.getColor(R.color.colorAwas))
             tvterm.setTextColor(resources.getColor(R.color.colorWhite))
         }
-        tvterm.text = words.random()
         tvDistance.text = data+" KM"
     }
 

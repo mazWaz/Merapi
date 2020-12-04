@@ -43,7 +43,7 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
     var PrevLocation: RawLocation = RawLocation(0.0, 0.0, 0.0)
     private val df = DecimalFormat("#.##")
     private var previousStatus = ""
-    private val krb = 3
+    private val krb = 5
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
