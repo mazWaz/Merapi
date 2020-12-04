@@ -32,6 +32,7 @@ import live.mazwaz.merapi.utils.Constants
 import live.mazwaz.merapi.utils.Constants.Companion.DistanceTo
 import live.mazwaz.merapi.utils.RxBus
 import live.mazwaz.merapi.utils.RxEvent
+import java.io.IOException
 import java.text.DecimalFormat
 
 class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
@@ -129,9 +130,7 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                     }
                 }
             }
-
         }
-
 
         when (val response = state.volcanoResponse) {
             is Success -> {
@@ -143,7 +142,6 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                     tekanan("${data.var_tekananmin} - ${data.var_tekananmax}")
                 }
             }
-
         }
 
         when (val response = state.volcanoResponse) {
@@ -234,7 +232,6 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
                     }
                 }
             }
-
         )
     }
 
@@ -242,7 +239,12 @@ class Dashboard : BaseEpoxyFragment<FragmentBaseBinding>() {
     override fun onStart() {
         super.onStart()
         disposable = RxBus.listen(RxEvent.LocationChangeListener::class.java).subscribe {
-            postLocation(it.data.latitude, it.data.longitude, it.data.altitude)
+          try {
+              requireContext()
+              postLocation(it.data.latitude, it.data.longitude, it.data.altitude)
+          }catch(e: IOException){
+
+          }
         }
     }
 

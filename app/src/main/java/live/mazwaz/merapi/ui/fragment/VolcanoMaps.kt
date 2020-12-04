@@ -75,7 +75,7 @@ class VolcanoMaps : Fragment() {
             }
         }, null)
         try {
-            val inputStream = requireActivity().assets.open("overlay-merapi_krbonly.xml")
+            val inputStream = requireActivity().assets.open("no-hospital.kmz")
             val size: Int = inputStream.available()
             val buffer = ByteArray(size)
             inputStream.read(buffer)
